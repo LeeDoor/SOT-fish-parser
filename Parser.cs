@@ -94,6 +94,7 @@ namespace Fishes_SOT_parser
                     if (!fish.IsDataEmpty())
                     {
                         fish.BuildPath();
+                        fish.ModifyPrices();
                         fishes.Add(fish);
                         fish = new Fish();
                     }
