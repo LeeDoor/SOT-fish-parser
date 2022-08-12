@@ -50,7 +50,7 @@ namespace Fishes_SOT_parser
         public void BuildPath()
         {
             var words = Name.Split();
-            Path = "\"images\\fishes\\" 
+            Path = "\"images\\\\fishes\\\\" //bolshe sleshey bogu sleshey
                 + char.ToUpper(words[0][0]) 
                 + words[0].Substring(1)
                 + "_"
@@ -105,7 +105,7 @@ namespace Fishes_SOT_parser
                 if (i != Prices.Count-1)
                     sb.Append(", ");
             }
-            return sb.ToString() + ")\n";
+            return sb.ToString() + "))\n";
         }
     }
 }
