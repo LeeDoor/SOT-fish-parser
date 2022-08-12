@@ -19,9 +19,21 @@ namespace Fishes_SOT_parser
         {
             Fish[] fishes = GetFishes(url);
 
-            foreach(Fish fish in fishes)
+            for(int i = 0; i < fishes.Length; i++)
             {
-                Console.WriteLine(fish.ToBuilderString());
+                if (i % 5 == 0)
+                {
+                    Console.WriteLine(""
+                    + "\nFishes.Add(builder"
+                    + "\n    .BuildName(\"\")"
+                    + "\n    .BuildBait(Bait.None)"
+                    + "\n);");
+                }
+                Console.WriteLine(fishes[i].ToBuilderString());
+                if (i % 5 == 4)
+                {
+                    Console.WriteLine(".Reset());");
+                }
             }
         }
 
