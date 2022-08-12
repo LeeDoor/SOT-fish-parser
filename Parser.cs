@@ -11,6 +11,10 @@ namespace Fishes_SOT_parser
 {
     public static class Parser
     {
+        /// <summary>
+        /// public start function that starts parsing
+        /// </summary>
+        /// <param name="url">url of wiki</param>
         public static void Start(string url)
         {
             Fish[] fishes = GetFishes(url);
@@ -20,6 +24,12 @@ namespace Fishes_SOT_parser
                 Console.WriteLine(fish.ToBuilderString());
             }
         }
+
+        /// <summary>
+        /// gets fishes from site
+        /// </summary>
+        /// <param name="url">url of site</param>
+        /// <returns>returns list of fishes</returns>
         private static Fish[] GetFishes(string url)
         {
             string htmlcode = GetHtml(url);
@@ -27,12 +37,18 @@ namespace Fishes_SOT_parser
             List<Fish> prices = new();
             foreach (HtmlNode table in tables)
             {
-                var res = GetPricesFromTable(table);
+                var res = GetFishesFromTable(table);
                 if(res != null)
                     prices.AddRange(res.ToList());
             }
             return prices.ToArray();
         }
+
+        /// <summary>
+        /// gets html string of page
+        /// </summary>
+        /// <param name="url">url of page</param>
+        /// <returns>string html code</returns>
         private static string GetHtml(string url)
         {
             string htmlCode = "";
@@ -43,6 +59,12 @@ namespace Fishes_SOT_parser
             }
             return htmlCode;
         }
+
+        /// <summary>
+        /// gets all tables with fish prices from site
+        /// </summary>
+        /// <param name="html">html code</param>
+        /// <returns>list of html nodes with pages inside</returns>
         private static HtmlNodeCollection GetTables(string html)
         {
             HtmlDocument htmlSnippet = new HtmlDocument();
@@ -51,7 +73,13 @@ namespace Fishes_SOT_parser
             var tables = htmlSnippet.DocumentNode.SelectNodes("//table[@class='wikitable']");
             return tables;
         }
-        private static Fish[] GetPricesFromTable(HtmlNode table)
+
+        /// <summary>
+        /// extracts info about all fishes inside from table
+        /// </summary>
+        /// <param name="table">html node of table</param>
+        /// <returns>list of fishes from table</returns>
+        private static Fish[] GetFishesFromTable(HtmlNode table)
         {
             HtmlDocument htmlSnippet = new HtmlDocument();
             htmlSnippet.LoadHtml(table.InnerHtml);
@@ -73,6 +101,12 @@ namespace Fishes_SOT_parser
             }
             return fishes.ToArray();
         }
+
+        /// <summary>
+        /// tries to parse found info and transform it into fish property
+        /// </summary>
+        /// <param name="str">info to parse</param>
+        /// <param name="fish">fish, whose property we will change</param>
         private static void TryParse(string str, Fish fish)
         {
             string? value;
@@ -97,6 +131,12 @@ namespace Fishes_SOT_parser
                 return;
             }
         }
+
+        /// <summary>
+        /// tries to parse given info to a fish type using regular expressions
+        /// </summary>
+        /// <param name="str">given string info</param>
+        /// <returns>string result if success, else null</returns>
         private static string? TryParseType(string str)
         {
             //catch title and type lines
@@ -114,6 +154,12 @@ namespace Fishes_SOT_parser
                 return null;
             return res.Value;
         }
+
+        /// <summary>
+        /// tries to parse given info to a fish title using regular expressions
+        /// </summary>
+        /// <param name="str">given string info</param>
+        /// <returns>string result if success, else null</returns>
         private static string? TryParseTitle(string str)
         {
             //catch title and type lines
@@ -125,6 +171,12 @@ namespace Fishes_SOT_parser
 
             return res.Value;
         }
+
+        /// <summary>
+        /// tries to parse given info to a price using regular expressions
+        /// </summary>
+        /// <param name="str">given string info</param>
+        /// <returns>string result if success, else null</returns>
         private static string? TryParsePrice(string str)
 
         {
