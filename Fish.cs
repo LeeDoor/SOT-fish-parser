@@ -40,7 +40,6 @@ namespace Fishes_SOT_parser
         {
             return
                 (string.IsNullOrEmpty(Name) ||
-                string.IsNullOrEmpty(Type) ||
                 Prices.Count != 8);
         }
 
@@ -97,6 +96,7 @@ namespace Fishes_SOT_parser
             sb.Append($".BuildFish(\n" + 
                 $"\"{Name}\",\n" +
                 $"{Path},\n" +
+                $"\"{Type}\",\n" +
                 $"new Location(),\n" +
                 $"new Price(");
             for(int i = 0; i < Prices.Count; i++)

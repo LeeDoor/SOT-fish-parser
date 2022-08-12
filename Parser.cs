@@ -140,16 +140,9 @@ namespace Fishes_SOT_parser
         /// <returns>string result if success, else null</returns>
         private static string? TryParseType(string str)
         {
-            //catch title and type lines
-            Regex regex = new Regex(@"^\w+\s\w+$");
-            Match res = regex.Match(str);
-
-            if (string.IsNullOrEmpty(res.Value))
-                return null;
-
             //is it title or type
-            regex = new Regex(@"^\w+\svariant$");
-            res = regex.Match(str);
+            Regex regex = new Regex(@"^(\w+\s)+variant$");
+            Match res = regex.Match(str);
 
             if (string.IsNullOrEmpty(res.Value))
                 return null;
