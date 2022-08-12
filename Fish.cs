@@ -8,10 +8,15 @@ namespace Fishes_SOT_parser
 {
     public class Fish
     {
+        // fish properties
         public string Name { get; set; }
         public string Type { get; set; }
         public string Path { get; set; }
         public List<int> Prices { get; set; }
+
+        /// <summary>
+        /// constructors
+        /// </summary>
         public Fish()
         {
             Name = "";
@@ -26,6 +31,11 @@ namespace Fishes_SOT_parser
             Path = path;
             Prices = price;
         }
+
+        /// <summary>
+        /// is this fish info not fully filled in
+        /// </summary>
+        /// <returns>true if one of property is empty</returns>
         public bool IsDataEmpty()
         {
             return
@@ -33,6 +43,10 @@ namespace Fishes_SOT_parser
                 string.IsNullOrEmpty(Type) ||
                 Prices.Count != 8);
         }
+
+        /// <summary>
+        /// creates path to image using name
+        /// </summary>
         public void BuildPath()
         {
             var words = Name.Split();
@@ -44,6 +58,24 @@ namespace Fishes_SOT_parser
                 + words[1].Substring(1)
                 + ".png\"";
         }
+
+        /// <summary>
+        /// removes extra price info from list
+        /// </summary>
+        public void ModifyPrices()
+        {
+            List<int> prices = new();
+            prices.Add(Prices[0]);
+            prices.Add(Prices[1]);
+            prices.Add(Prices[4]);
+            prices.Add(Prices[5]);
+            Prices = prices;
+        }
+
+        /// <summary>
+        /// debug ToString override
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
@@ -54,6 +86,11 @@ namespace Fishes_SOT_parser
             }
             return sb.ToString();
         }
+
+        /// <summary>
+        /// returns string, which i can use in my project to create fishes
+        /// </summary>
+        /// <returns></returns>
         public string ToBuilderString()
         {
             StringBuilder sb = new StringBuilder();
